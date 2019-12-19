@@ -151,3 +151,17 @@ resources_consumed(N,K,S,Ctg):- word(K,S,W),in(W,Ctg),leaf_ctg(Ctg),N= #count{ml
 enough_resources_available(K,S,Ctg):- resources_consumed(N1,K,S,Ctg),resources_consumed_sent(N2,S,Ctg), resources_required(N3,K,S,Ctg), resource_capacity(N),N-N1-N2>=N3.
 
 ab(dmap(K,S,Ctg,C)) or not(ab(dmap(K,S,Ctg,C))):- word(K,S,W),has_meaning(W,Ctg,C),word(K1,S,W1),K != K1, W!=W1,map(K1,S,Ctg1,C).
+
+
+extra_m(Dir,S,Fnp):- not extra_m(Rev,S,fnp),dir_rev_m(Dir,Rev,S).
+extra_m(Rev,S,fnp):- impossible(Dir,I),not impossible(Rev,I), dir_rev_m(Dir,Rv,S),sent_of_par(I,P,S).
+
+extra_m(Rev,S,fnp):- not impossible(Dir,I),unlikely(Dir,I),not hpd(Dir),
+not impossible(Rev,I), not unlikely(Rev,I), dir_rev_m(Dir,Rev,S), sent_of_par(I,P,S).
+
+extra_m(Rev,S,fnp):- hpd(Rev),dir_rev_m(Dir,Rev,S),sent_of_par(I,P,S).
+extra_m(Ev,S):- extra_m(Ev,S,grm_cues).
+extra_m(Ev,S):- extra_m(Ev,S,fnp),not extra_m_by(Ev,S,grm_cues).
+extr_m_by(S,X):- extra_m(Ev,S,X).
+
+occurs(Ev,I):- extra_m(Ev,S),sent_of_par(I,P,S).
