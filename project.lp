@@ -1,8 +1,12 @@
-the cat was bitten by the dog
-the shoe was bitten by the dog
-the cat bit the dog
-the man was bitten by the dog
-the cat killed the dog
+%the cat was bitten by the dog
+%the shoe was bitten by the dog
+%the cat bit the dog
+%the man was bitten by the dog
+%Then the cat killed the dog
+
+%The cat bit the dog. The cat killed the dog.
+ sent_of_par(1,p,s2).
+ sent_of_par(2,p,s4).
 
 
 sentence(s).
@@ -26,9 +30,9 @@ word(3, s3, "was"). word(4, s3,"bitten").
 word(5, s3, "by"). word(6, s3, "the"). word(7, s3, "dog").
 
 sentence(s4).
-word(1, s4, "the"). word(2, s4, "cat").
-word(3, s4, "killed"). word(4, s4,"the").
-word(5, s4, "dog").
+word(1, s4, "then"). word(2,s4,"the"),word(3, s4, "cat").
+word(4, s4, "killed"). word(5, s4,"the").
+word(6, s4, "dog").
 
 pos("the",s,1).pos("cat",s,2).pos("was",s,3).pos("bitten",s,4).pos("by",s,5).pos("the",s,6).pos("dog",s,7).
 pos("the",s1,1).pos("shoe",s1,2).pos("was",s1,3).pos("bitten",s1,4).pos("by",s1,5).pos("the",s1,6).pos("dog",s1,7).
@@ -162,6 +166,6 @@ not impossible(Rev,I), not unlikely(Rev,I), dir_rev_m(Dir,Rev,S), sent_of_par(I,
 extra_m(Rev,S,fnp):- hpd(Rev),dir_rev_m(Dir,Rev,S),sent_of_par(I,P,S).
 extra_m(Ev,S):- extra_m(Ev,S,grm_cues).
 extra_m(Ev,S):- extra_m(Ev,S,fnp),not extra_m_by(Ev,S,grm_cues).
-extr_m_by(S,X):- extra_m(Ev,S,X).
+extra_m_by(S,X):- extra_m(Ev,S,X).
 
 occurs(Ev,I):- extra_m(Ev,S),sent_of_par(I,P,S).
